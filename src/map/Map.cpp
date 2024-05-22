@@ -28,14 +28,17 @@ Map::~Map() {
 }
 
 
-void Map::render(SDL_Window* window) const {
+SDL_Renderer* Map::render(SDL_Window* window, SDL_Rect* viewport) const {
   SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
   SDL_Texture* texture;
   SDL_Rect tile_destination;
 
   
-  for (int i = 0; i < height; i++) {
-    for (int j = 0; j < width; j++) {
+  for (int i = viewport->y; i < viewport->y + viewport->h; i++) {
+    for (int j = viewport->x; j < viewport->x + viewport->w; j++) {
+      if (i < 0 || i >= height) throw std::out_of_range("Viewport exceeded map height!");
+      if (j < 0 || j >= width) throw std::out_of_range("Viewport exceeded map width!");
+      
       tile_destination = SDL_Rect { .x = i * TILE_HEIGHT,
 	.y = j * TILE_WIDTH,
 	.w = TILE_WIDTH,
@@ -62,8 +65,8 @@ void Map::render(SDL_Window* window) const {
 
       }
 
-      
       SDL_RenderCopy(renderer, texture, nullptr, &tile_destination);
-
-      
+    }
+  }
+  return renderer;
 }

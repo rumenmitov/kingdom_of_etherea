@@ -9,3 +9,9 @@
  * @returns Window pointer.
  */
 SDL_Window* init(void);
+
+
+/*
+ * @brief Deinitializes everything.
+ */
+void quit(SDL_Window*);

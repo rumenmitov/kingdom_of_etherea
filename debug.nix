@@ -3,7 +3,7 @@ pkgs.stdenv.mkDerivation {
   name = "Kingdom of Etherea (debug)";
   src  = ./.;
 
-  buildInputs = with pkgs; [ SDL2 ];
+  buildInputs = with pkgs; [ SDL2  SDL2_image ];
 
   buildPhase = "make debug";
 
