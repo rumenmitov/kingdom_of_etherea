@@ -10,6 +10,5 @@ pkgs.stdenv.mkDerivation {
   installPhase = ''
 		    mkdir -p $out/bin
         cp -r bin/* $out/bin
-	      $out/bin/debug/main
       '';
 }

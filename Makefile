@@ -1,6 +1,6 @@
 CC=g++
-OBJ=src/*.cpp
-FLAGS=-Wall -lSDL2
+OBJ=src/*.cpp src/*/*.cpp
+FLAGS=-Wall -lSDL2 -lSDL2_image
 
 all:
 

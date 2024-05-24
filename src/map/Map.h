@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_rect.h>
 
 static const int TILE_WIDTH = 32;
 static const int TILE_HEIGHT = 32;
@@ -26,7 +25,9 @@ class Map {
   ~Map();
 
   // Draws viewport and returns renderer.
-  SDL_Renderer* render(SDL_Window*, SDL_Rect*) const;
+  void render(SDL_Window*, const SDL_Rect&);
+
+  SDL_Renderer* renderer;
 
 
 private:

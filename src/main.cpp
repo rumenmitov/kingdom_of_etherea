@@ -1,19 +1,76 @@
 #include <SDL2/SDL.h>
+#include <exception>
 #include <iostream>
-#include <stdexcept>
 
-#include "init/Init.h"
+#include "game_state/GameState.h"
+#include "map/Map.h"
 
 int main(int argc, char* args[]) {
 
-  SDL_Window* window = nullptr;
+  GameState* game_state = nullptr;
   try {
-    window = init();
-  } catch (std::runtime_error e) {
-    std::cerr << "Error with init process: " << e.what() << std::endl;
+    game_state = new GameState();
+  } catch (std::exception* e) {
+    std::cerr << "Error with init process: " << e->what() << std::endl;
     return 1;
   }
-  
 
+  Map map(40, 40);
+
+  try {
+  map.render(game_state->window, game_state->viewport);
+  } catch (std::exception* e) {
+    std::cerr << "Error with render: " << e->what() << std::endl;
+  }
+  SDL_RenderPresent(map.renderer);
+
+  while (true) {
+    SDL_Event e;
+    while (SDL_PollEvent(&e) != 0) {
+      switch (e.type) {
+
+      case SDL_QUIT:
+	goto QUIT;
+	break;
+
+      case SDL_KEYDOWN:
+	switch (e.key.keysym.sym) {
+
+	case SDLK_q:
+	  goto QUIT;
+	  break;
+
+	case SDLK_w:
+	  game_state->viewport.y--;
+	  break;
+	  
+	case SDLK_s:
+	  game_state->viewport.y++;
+	  break;
+	  
+	case SDLK_d:
+	  game_state->viewport.x++;
+	  break;
+	  
+	case SDLK_a:
+	  game_state->viewport.x--;
+	  break;
+
+	default:
+	  break;
+
+	}
+	map.render(game_state->window, game_state->viewport);
+	SDL_RenderPresent(map.renderer);
+	break;
+
+      default:
+	break;
+
+      }
+    }
+  }
+
+ QUIT:
   return 0;
 }

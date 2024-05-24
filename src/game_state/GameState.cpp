@@ -1,10 +1,11 @@
 #include <stdexcept>
-#include <SDL2/SDL_image.h>
+#include <SDL2/SDL.h>
+#include "../../include/SDL_image.h"
 
-#include "Init.h"
+#include "GameState.h"
 
-SDL_Window* init(void) {
-  SDL_Window* window = nullptr;
+GameState::GameState() {
+  window = nullptr;
   if (SDL_Init(SDL_INIT_VIDEO) < 0) throw std::runtime_error(SDL_GetError());
 
   window = SDL_CreateWindow(
@@ -20,11 +21,11 @@ SDL_Window* init(void) {
     throw std::runtime_error(SDL_GetError());
   }
 
-  return window;
+  viewport = SDL_Rect { .x = 0, .y = 0, .w = 5, .h = 5 };
 }
 
 
-void quit(SDL_Window* window) {
+GameState::~GameState() {
   SDL_DestroyWindow(window);
   window = nullptr;
   
