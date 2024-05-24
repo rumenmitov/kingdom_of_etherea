@@ -64,7 +64,12 @@ int main(int argc, char* args[]) {
 	  break;
 
 	}
-	map.render(game_state->window, game_state->viewport);
+
+	try {
+	  map.render(game_state->window, game_state->viewport);
+	} catch (std::exception* e) {
+	  std::cerr << "Error with render: " << e->what() << std::endl;
+	}
 	SDL_RenderPresent(map.renderer);
 	break;
 
