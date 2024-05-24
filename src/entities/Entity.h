@@ -7,21 +7,20 @@
  * @brief Base class for all entities in the game.
  */
 class Entity : public SDL_Rect {
-
-  // Creates an entity from rectangle with a certain health, speed,
-  // and sprite file path.
-  Entity(SDL_Rect, unsigned int, unsigned int, const char*);
+  
+public:
+  // Creates an entity with a sprite file path, health
+  // and speed.
+  Entity(const char[1024], unsigned int, unsigned int);
   
   ~Entity();
 
-  void render(SDL_Window*, const SDL_Rect&);
+  void render(SDL_Renderer*, const SDL_Rect&);
   bool collision(const SDL_Rect&) const;
-
-  SDL_Renderer* renderer;
 
   unsigned int health;
   unsigned int speed;
 
  protected:
-  char* sprite;
+  char sprite[1024];
 };

@@ -4,9 +4,11 @@
 #include <ctime>
 #include <stdexcept>
 
+#include "../game_state/GameState.h"
 #include "Map.h"
 
-Map::Map(int w, int h) : renderer(nullptr), width(w), height(h) {
+
+Map::Map(int w, int h) : width(w), height(h) {
   srand(time(nullptr));
   
   grid = new enum Tile*[height];
@@ -43,19 +45,10 @@ Map::~Map() {
   }
 
   delete[] grid;
-
-  SDL_DestroyRenderer(renderer);
-  renderer = nullptr;
 }
 
-void Map::render(SDL_Window* window, const SDL_Rect& viewport) {
-  using namespace std;
-  if (renderer != nullptr) SDL_RenderClear(renderer);
-  else {
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if (renderer == nullptr) throw std::runtime_error("Couldn't create renderer!");
-  }
-  
+
+void Map::render(SDL_Renderer* renderer, const SDL_Rect& viewport) {
   SDL_Texture* texture = nullptr;
   SDL_Rect tile_destination;
   

@@ -2,8 +2,10 @@
 
 #include <SDL2/SDL.h>
 
-static const int SCREEN_WIDTH = 640;
-static const int SCREEN_HEIGHT = 640;
+#define SCREEN_WIDTH  1280
+#define SCREEN_HEIGHT 640
+#define TILE_WIDTH    64
+#define TILE_HEIGHT   64
 
 /*
  * @brief Handles the window object and other game state.
@@ -14,5 +16,6 @@ class GameState {
   ~GameState();
 
   SDL_Window* window;
+  SDL_Renderer* renderer;
   SDL_Rect viewport;
 };

@@ -4,6 +4,8 @@
 
 #include "game_state/GameState.h"
 #include "map/Map.h"
+#include "entities/Entity.h"
+
 
 int main(int argc, char* args[]) {
 
@@ -15,15 +17,27 @@ int main(int argc, char* args[]) {
     return 1;
   }
 
+  
   Map map(100, 100);
+  Entity hero("assets/knight.png", 0, 0);
+  
+  SDL_SetRenderDrawColor(game_state->renderer, 0x0a, 0x30, 0x01, 0xff);
+  SDL_RenderFillRect(game_state->renderer, new SDL_Rect {
+      .x = 0,
+      .y = 0,
+      .w = SCREEN_WIDTH,
+      .h = SCREEN_HEIGHT
+    });
 
   try {
-  map.render(game_state->window, game_state->viewport);
+    map.render(game_state->renderer, game_state->viewport);
+    hero.render(game_state->renderer, game_state->viewport);
   } catch (std::exception* e) {
     std::cerr << "Error with render: " << e->what() << std::endl;
   }
-  SDL_RenderPresent(map.renderer);
+  SDL_RenderPresent(game_state->renderer);
 
+  
   while (true) {
     SDL_Event e;
     while (SDL_PollEvent(&e) != 0) {
@@ -41,23 +55,35 @@ int main(int argc, char* args[]) {
 	  break;
 
 	case SDLK_w:
-	  if (game_state->viewport.y - 1 >= 0)
+	  if (game_state->viewport.y - 1 >= 0) {
 	    game_state->viewport.y--;
+	  } else {
+	    if (hero.y - 1 >= 0) hero.y--;
+	  }
 	  break;
 	  
 	case SDLK_s:
-	  if (game_state->viewport.y + 1 + game_state->viewport.h <= map.height)
+	  if (game_state->viewport.y + 1 + game_state->viewport.h <= map.height) {
 	    game_state->viewport.y++;
+	  } else {
+	    if (hero.y + 1 < map.height) hero.y++;
+	  }
 	  break;
 	  
 	case SDLK_d:
-	  if (game_state->viewport.x + 1 + game_state->viewport.w <= map.width)
+	  if (game_state->viewport.x + 1 + game_state->viewport.w <= map.width) {
 	    game_state->viewport.x++;
+	  } else {
+	    if (hero.x + 1 < map.width) hero.x++;
+	  }
 	  break;
 	  
 	case SDLK_a:
-	  if (game_state->viewport.x - 1 >= 0)
+	  if (game_state->viewport.x - 1 >= 0) {
 	    game_state->viewport.x--;
+	  } else {
+	    if (hero.x - 1 >= 0) hero.x--;
+	  }
 	  break;
 
 	default:
@@ -65,12 +91,20 @@ int main(int argc, char* args[]) {
 
 	}
 
+	SDL_RenderFillRect(game_state->renderer, new SDL_Rect {
+	    .x = 0,
+	    .y = 0,
+	    .w = SCREEN_WIDTH,
+	    .h = SCREEN_HEIGHT
+	  });
+	
 	try {
-	  map.render(game_state->window, game_state->viewport);
+	  map.render(game_state->renderer, game_state->viewport);
+	  hero.render(game_state->renderer, game_state->viewport);
 	} catch (std::exception* e) {
 	  std::cerr << "Error with render: " << e->what() << std::endl;
 	}
-	SDL_RenderPresent(map.renderer);
+	SDL_RenderPresent(game_state->renderer);
 	break;
 
       default:

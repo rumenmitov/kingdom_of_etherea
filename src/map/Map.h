@@ -2,8 +2,6 @@
 
 #include <SDL2/SDL.h>
 
-static const int TILE_WIDTH = 32;
-static const int TILE_HEIGHT = 32;
 
 enum Tile {
   Grass = 0,
@@ -24,10 +22,9 @@ class Map {
   // Clears map.
   ~Map();
 
-  // Draws viewport and returns renderer.
-  void render(SDL_Window*, const SDL_Rect&);
+  // Draws viewport on renderer.
+  void render(SDL_Renderer*, const SDL_Rect&);
 
-  SDL_Renderer* renderer;
   int width;
   int height;
 

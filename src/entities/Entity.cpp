@@ -2,55 +2,47 @@
 #include <cstring>
 #include <stdexcept>
 
-#include "Entity.h"
 #include "../../include/SDL_image.h"
+#include "../game_state/GameState.h"
+#include "Entity.h"
 
 
-Entity::Entity(SDL_Rect rect, unsigned int health, unsigned int speed, const char* sprite) :
-  SDL_Rect(rect), health(health), speed(speed)
+Entity::Entity(const char sprite[1024], unsigned int health = 0, unsigned int speed = 0) :
+  health(health), speed(speed)
 {
-  std::strncpy(this->sprite, sprite, 1024);
-  renderer = nullptr;
-}
-
-
-Entity::~Entity() {
-  SDL_DestroyRenderer(renderer);
-  renderer = nullptr;
+  x = SCREEN_WIDTH / (TILE_WIDTH * 2);
+  y = SCREEN_HEIGHT / (TILE_HEIGHT * 2);
+  w = TILE_WIDTH;
+  h = TILE_HEIGHT;
   
-  delete[] sprite;
+  std::strncpy(this->sprite, sprite, 1024);
 }
 
 
-void Entity::render(SDL_Window* window, const SDL_Rect& viewport) {
+Entity::~Entity() {}
+
+
+void Entity::render(SDL_Renderer* renderer, const SDL_Rect& viewport) {
   if ( !collision(viewport) ) return;
   
-  if (renderer == nullptr) {
-    SDL_RenderClear(renderer); 
-  } else {
-    renderer =
-      SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
-      if (renderer == nullptr) throw std::runtime_error(SDL_GetError());
-  }
-
-
   SDL_Texture* texture = IMG_LoadTexture(renderer, sprite);
   if (texture == nullptr) throw std::runtime_error(SDL_GetError());
 
   SDL_RenderCopy(renderer, texture, nullptr, new SDL_Rect {
-      this->x,
-      this->y,
+      this->x * TILE_WIDTH,
+      this->y * TILE_HEIGHT,
       this->w,
       this->h
     });
 }
   
 
-  
 bool Entity::collision(const SDL_Rect& rect) const {
   if ((rect.x >= x && rect.x <= x + w) &&
       (rect.y >= y && rect.y <= y + h)) return true;
+
+  if ((x >= rect.x && x <= rect.x + rect.w) &&
+      (y >= rect.y && y <= rect.y + rect.h)) return true;
 
   return false;
 }
