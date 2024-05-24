@@ -1,17 +1,35 @@
 #include <SDL2/SDL.h>
 #include "../../include/SDL_image.h"
+#include <cstdlib>
+#include <ctime>
 #include <stdexcept>
 
 #include "Map.h"
 
 Map::Map(int w, int h) : renderer(nullptr), width(w), height(h) {
+  srand(time(nullptr));
+  
   grid = new enum Tile*[height];
 
   for (int i = 0; i < height; i++) {
     enum Tile* row = new enum Tile[width];
 
     for (int j = 0; j < width; j++) {
-      row[j] = Grass;
+      switch (rand() % 3) {
+	
+      case 1:
+	row[j] = Water;
+	break;
+	
+      case 2:
+	row[j] = Rock;
+	break;
+
+      default:
+	row[j] = Grass;
+	break;
+
+      }
     }
 
     grid[i] = row;
@@ -41,13 +59,14 @@ void Map::render(SDL_Window* window, const SDL_Rect& viewport) {
   SDL_Texture* texture = nullptr;
   SDL_Rect tile_destination;
   
-  for (int i = viewport.y; i < viewport.y + viewport.h; i++) {
-    for (int j = viewport.x; j < viewport.x + viewport.w; j++) {
-      if (i < 0 || i >= height) throw std::out_of_range("Viewport exceeded map height!");
-      if (j < 0 || j >= width) throw std::out_of_range("Viewport exceeded map width!");
+  for (int i = viewport.y, i_dest = 0; i < viewport.y + viewport.h; i++, i_dest++) {
+    if (i < 0 || i >= height) continue;
+    
+    for (int j = viewport.x, j_dest = 0; j < viewport.x + viewport.w; j++, j_dest++) {
+      if (j < 0 || j >= width) continue;
       
-      tile_destination = SDL_Rect { .x = j * TILE_WIDTH,
-	.y = i * TILE_HEIGHT,
+      tile_destination = SDL_Rect { .x = j_dest * TILE_WIDTH,
+	.y = i_dest * TILE_HEIGHT,
 	.w = TILE_WIDTH,
 	.h = TILE_HEIGHT
       };
@@ -65,7 +84,7 @@ void Map::render(SDL_Window* window, const SDL_Rect& viewport) {
 	break;
 
       case Water:
-	texture = IMG_LoadTexture(renderer, "assets/rock.png");
+	texture = IMG_LoadTexture(renderer, "assets/water.png");
 	if (texture == nullptr) throw std::runtime_error("Couldn't load texture!\n");
 	break;
 

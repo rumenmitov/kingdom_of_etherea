@@ -12,8 +12,8 @@ GameState::GameState() {
 			    "Kingdom of Etherea",
 			    SDL_WINDOWPOS_UNDEFINED,
 			    SDL_WINDOWPOS_UNDEFINED,
-			    640,
-			    400,
+			    SCREEN_WIDTH,
+			    SCREEN_HEIGHT,
 			    SDL_WINDOW_SHOWN);
   if (window == nullptr) throw std::runtime_error(SDL_GetError());
 
@@ -21,7 +21,12 @@ GameState::GameState() {
     throw std::runtime_error(SDL_GetError());
   }
 
-  viewport = SDL_Rect { .x = 0, .y = 0, .w = 5, .h = 5 };
+  viewport = SDL_Rect {
+    .x = 0,
+    .y = 0,
+    .w = SCREEN_WIDTH / 32,
+    .h = SCREEN_WIDTH / 32
+  };
 }
 
 

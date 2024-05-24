@@ -28,13 +28,13 @@ class Map {
   void render(SDL_Window*, const SDL_Rect&);
 
   SDL_Renderer* renderer;
+  int width;
+  int height;
 
 
 private:
 
   enum Tile** grid;
-  int width;
-  int height;
 };
 
     

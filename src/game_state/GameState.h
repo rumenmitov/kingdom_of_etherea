@@ -2,6 +2,9 @@
 
 #include <SDL2/SDL.h>
 
+static const int SCREEN_WIDTH = 640;
+static const int SCREEN_HEIGHT = 640;
+
 /*
  * @brief Handles the window object and other game state.
  */

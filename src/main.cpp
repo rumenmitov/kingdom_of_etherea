@@ -15,7 +15,7 @@ int main(int argc, char* args[]) {
     return 1;
   }
 
-  Map map(40, 40);
+  Map map(100, 100);
 
   try {
   map.render(game_state->window, game_state->viewport);
@@ -41,19 +41,23 @@ int main(int argc, char* args[]) {
 	  break;
 
 	case SDLK_w:
-	  game_state->viewport.y--;
+	  if (game_state->viewport.y - 1 >= 0)
+	    game_state->viewport.y--;
 	  break;
 	  
 	case SDLK_s:
-	  game_state->viewport.y++;
+	  if (game_state->viewport.y + 1 + game_state->viewport.h <= map.height)
+	    game_state->viewport.y++;
 	  break;
 	  
 	case SDLK_d:
-	  game_state->viewport.x++;
+	  if (game_state->viewport.x + 1 + game_state->viewport.w <= map.width)
+	    game_state->viewport.x++;
 	  break;
 	  
 	case SDLK_a:
-	  game_state->viewport.x--;
+	  if (game_state->viewport.x - 1 >= 0)
+	    game_state->viewport.x--;
 	  break;
 
 	default:
