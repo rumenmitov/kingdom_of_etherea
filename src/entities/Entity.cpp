@@ -29,8 +29,8 @@ void Entity::render(SDL_Renderer* renderer, const SDL_Rect& viewport) {
   if (texture == nullptr) throw std::runtime_error(SDL_GetError());
 
   SDL_RenderCopy(renderer, texture, nullptr, new SDL_Rect {
-      this->x * TILE_WIDTH,
-      this->y * TILE_HEIGHT,
+      (this->x - viewport.x) * TILE_WIDTH,
+      (this->y - viewport.y) * TILE_HEIGHT,
       this->w,
       this->h
     });

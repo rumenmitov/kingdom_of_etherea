@@ -57,6 +57,7 @@ int main(int argc, char* args[]) {
 	case SDLK_w:
 	  if (game_state->viewport.y - 1 >= 0) {
 	    game_state->viewport.y--;
+	    hero.y--;
 	  } else {
 	    if (hero.y - 1 >= 0) hero.y--;
 	  }
@@ -65,6 +66,7 @@ int main(int argc, char* args[]) {
 	case SDLK_s:
 	  if (game_state->viewport.y + 1 + game_state->viewport.h <= map.height) {
 	    game_state->viewport.y++;
+	    hero.y++;
 	  } else {
 	    if (hero.y + 1 < map.height) hero.y++;
 	  }
@@ -73,6 +75,7 @@ int main(int argc, char* args[]) {
 	case SDLK_d:
 	  if (game_state->viewport.x + 1 + game_state->viewport.w <= map.width) {
 	    game_state->viewport.x++;
+	    hero.x++;
 	  } else {
 	    if (hero.x + 1 < map.width) hero.x++;
 	  }
@@ -81,6 +84,7 @@ int main(int argc, char* args[]) {
 	case SDLK_a:
 	  if (game_state->viewport.x - 1 >= 0) {
 	    game_state->viewport.x--;
+	    hero.x--;
 	  } else {
 	    if (hero.x - 1 >= 0) hero.x--;
 	  }
