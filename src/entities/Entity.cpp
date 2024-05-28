@@ -46,6 +46,7 @@ void Entity::render(SDL_Renderer* renderer, const SDL_Rect& viewport) {
       this->w * TILE_WIDTH,
       this->h * TILE_HEIGHT
     });
+
 }
   
 
@@ -61,8 +62,21 @@ bool Entity::collision(const SDL_Rect& rect) const {
 
 
 void Entity::move() {
-  if (movement.up)    y--;
-  if (movement.down)  y++;
-  if (movement.left)  x--;
-  if (movement.right) x++;
+  
+  if (movement.up) {
+    y--;
+  }
+  
+  if (movement.down) {
+    y++;
+  }
+  
+  if (movement.left) {
+    x--;
+  }
+  
+  if (movement.right) {
+    x++;
+  }
+
 }

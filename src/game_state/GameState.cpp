@@ -27,19 +27,21 @@ GameState::GameState() {
     throw std::runtime_error(SDL_GetError());
   }
 
+  map = new Map(100, 100);
+  
   viewport = SDL_Rect {
-    .x = 0,
-    .y = 0,
+    .x = map->offset_x / 2,
+    .y = map->offset_y / 2,
     .w = SCREEN_WIDTH / TILE_WIDTH,
     .h = SCREEN_HEIGHT / TILE_HEIGHT
   };
 
-  
-  map = new Map(100, 100);
 
   // TODO: Replace this with an actual texture spritesheet
   char hero_asset[] = "assets/knight.png";
   hero = new Hero(hero_asset, 0, 0);
+  hero->x = map->offset_x / 2 + viewport.w / 2;
+  hero->y = map->offset_y / 2 + viewport.h / 2;
   
   entities.insert(std::pair(0, hero));
 }
@@ -92,40 +94,28 @@ enum Action GameState::handle_actions(const SDL_Event& e) {
 	  if (viewport.y - 1 >= 0) {
 	    viewport.y--;
 	    hero->movement.up = true;
-	  } else {
-	    if (hero->y - 1 >= 0) hero->movement.up = true;
-	    else hero->movement.up = false;
-	  }
+	  } else hero->movement.up = false;
 	  break;
 	  
 	case SDLK_s:
-	  if (viewport.y + 1 + viewport.h <= map->height) {
+	  if (viewport.y + 1 + viewport.h <= map->height + map->offset_y / 2) {
 	    viewport.y++;
 	    hero->movement.down = true;
-	  } else {
-	    if (hero->y + hero->h < map->height) hero->movement.down = true;
-	    else hero->movement.down = false;
-	  }
+	  } else hero->movement.down = false;
 	  break;
 	  
 	case SDLK_d:
-	  if (viewport.x + 1 + viewport.w <= map->width) {
+	  if (viewport.x + 1 + viewport.w < map->width + map->offset_x / 2) {
 	    viewport.x++;
 	    hero->movement.right = true;
-	  } else {
-	    if (hero->x + hero->w < map->width) hero->movement.right = true;
-	    else hero->movement.right = false;
-	  }
+	  } else hero->movement.right = false;
 	  break;
 	  
 	case SDLK_a:
 	  if (viewport.x - 1 >= 0) {
 	    viewport.x--;
 	    hero->movement.left = true;
-	  } else {
-	    if (hero->x - 1 >= 0) hero->movement.left = true;
-	    else hero->movement.left = false;
-	  }
+	  } else hero->movement.left = false;
 	  break;
 
 	default:

@@ -3,24 +3,3 @@
 
 
 2D rogue-like adventure game.
-
-
-* Main Goals
-
-** TODO Procedural World
-** TODO Custom, equipable loot
-** TODO Multiplayer
-
-
-* Current Focus
-
-** DONE Hero class                                                    :mech:
-** DONE Movement controls                                             :mech:
-** TODO Improve camera movement when PC is at the edge of screen      :mech:
-** TODO Improve gameplay loop (in particular for handling state)      :mech:
-
-
-* Future Improvements
-
-** TODO Single sprite texture                                         :opti:
-** TODO Health bars                                                   :mech:

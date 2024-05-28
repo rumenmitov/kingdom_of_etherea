@@ -28,10 +28,14 @@ class Map {
   int width;
   int height;
 
+  int offset_x;
+  int offset_y;
+
 
 private:
 
   enum Tile** grid;
+  bool requires_redraw;
 };
 
     

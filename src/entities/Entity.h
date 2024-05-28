@@ -20,6 +20,10 @@ public:
 
   void render(SDL_Renderer*, const SDL_Rect&);
   bool collision(const SDL_Rect&) const;
+
+  /*
+   * @brief Move entity.
+   */
   void move();
 
   unsigned int health;

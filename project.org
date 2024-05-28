@@ -1,0 +1,25 @@
+#+title: Kingdom of Etherea
+#+author: Rumen Mitov
+
+
+* Main Goals
+
+** TODO Procedural World
+- [30%]
+** TODO Custom, equipable loot
+** TODO Multiplayer
+
+
+* Current Focus
+
+** DONE Hero class                                                    :mech:
+** DONE Movement controls                                             :mech:
+** DONE Improve camera movement when PC is at the edge of screen      :mech:
+- World border with map offset
+** DONE Improve gameplay loop (in particular for handling state)      :mech:
+
+
+* Future Improvements
+
+** TODO Single sprite texture                                         :opti:
+** TODO Health bars                                                   :mech:
