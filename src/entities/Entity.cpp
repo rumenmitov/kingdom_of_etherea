@@ -7,15 +7,27 @@
 #include "Entity.h"
 
 
-Entity::Entity(const char sprite[1024], unsigned int health = 0, unsigned int speed = 0) :
+Entity::Entity() {
+  health = 0;
+  speed = 0;
+  std::memset(sprite, 0, 1024);
+};
+
+
+Entity::Entity(char sprite[1024], unsigned int health = 0, unsigned int speed = 0) :
   health(health), speed(speed)
 {
   x = SCREEN_WIDTH / (TILE_WIDTH * 2);
   y = SCREEN_HEIGHT / (TILE_HEIGHT * 2);
-  w = TILE_WIDTH;
-  h = TILE_HEIGHT;
+  w = 1;
+  h = 1;
   
   std::strncpy(this->sprite, sprite, 1024);
+
+  movement.up    = false;
+  movement.down  = false;
+  movement.left  = false;
+  movement.right = false;
 }
 
 
@@ -31,8 +43,8 @@ void Entity::render(SDL_Renderer* renderer, const SDL_Rect& viewport) {
   SDL_RenderCopy(renderer, texture, nullptr, new SDL_Rect {
       (this->x - viewport.x) * TILE_WIDTH,
       (this->y - viewport.y) * TILE_HEIGHT,
-      this->w,
-      this->h
+      this->w * TILE_WIDTH,
+      this->h * TILE_HEIGHT
     });
 }
   
@@ -45,4 +57,12 @@ bool Entity::collision(const SDL_Rect& rect) const {
       (y >= rect.y && y <= rect.y + rect.h)) return true;
 
   return false;
+}
+
+
+void Entity::move() {
+  if (movement.up)    y--;
+  if (movement.down)  y++;
+  if (movement.left)  x--;
+  if (movement.right) x++;
 }

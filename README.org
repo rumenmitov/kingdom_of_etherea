@@ -7,20 +7,20 @@
 
 * Main Goals
 
-- [ ] Procedural World
-- [ ] Custom, equipable loot
-- [ ] Multiplayer
+** TODO Procedural World
+** TODO Custom, equipable loot
+** TODO Multiplayer
 
 
 * Current Focus
 
-- [ ] Hero class :: mech
-- [ ] Movement controls :: mech
-- [ ] Improve camera movement when PC is at the edge of screen :: mech
-- [ ] Improve gameplay loop (in particular for handling state) :: mech
+** DONE Hero class                                                    :mech:
+** DONE Movement controls                                             :mech:
+** TODO Improve camera movement when PC is at the edge of screen      :mech:
+** TODO Improve gameplay loop (in particular for handling state)      :mech:
 
 
 * Future Improvements
 
-- Single sprite texture :: opti
-- Health bars :: mech
+** TODO Single sprite texture                                         :opti:
+** TODO Health bars                                                   :mech:
