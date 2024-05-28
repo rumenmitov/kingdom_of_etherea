@@ -1,6 +1,6 @@
 #+title: Kingdom of Etherea
 #+author: Rumen Mitov
-
+#+options: H:3
 
 * Main Goals
 
