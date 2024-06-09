@@ -16,6 +16,8 @@
 ** DONE Improve camera movement when PC is at the edge of screen      :mech:
 - World border with map offset
 ** DONE Improve gameplay loop (in particular for handling state)      :mech:
+** DONE Entity IDs                                                    :mech:
+** TODO Enemy class                                                   :mech:
 
 
 * Future Improvements

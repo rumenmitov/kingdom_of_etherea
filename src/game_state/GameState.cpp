@@ -39,7 +39,7 @@ GameState::GameState() {
 
   // TODO: Replace this with an actual texture spritesheet
   char hero_asset[] = "assets/knight.png";
-  hero = new Hero(hero_asset, 0, 0);
+  hero = new Hero(hero_asset, 0, 0, 0);
   hero->x = map->offset_x / 2 + viewport.w / 2;
   hero->y = map->offset_y / 2 + viewport.h / 2;
   

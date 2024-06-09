@@ -12,9 +12,14 @@ class Entity : public SDL_Rect {
 public:
   Entity();
   
-  // Creates an entity with a sprite file path, health
-  // and speed.
-  Entity(char[1024], unsigned int, unsigned int);
+  /*
+   * @brief Creates an entity.
+   * @param char sprite[1024]  Path to sprite file.
+   * @param unsigned int       Unique ID.
+   * @param unsigned int       Health.
+   * @param unsigned int       Speed.
+   */
+  Entity(char[1024], unsigned int, unsigned int, unsigned int);
   
   ~Entity();
 
@@ -39,6 +44,8 @@ public:
     bool right;
     bool left;
   } movement;
+
+  unsigned id;
 
   
  protected:

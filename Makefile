@@ -1,9 +1,10 @@
-CC=g++
-GAME_STATE=src/game_state/*.cpp
-MAP=src/map/*.cpp
-ENTITIES=src/entities/*.cpp src/entities/hero/*.cpp
-OBJ=src/*.cpp $(GAME_STATE) $(MAP) $(ENTITIES)
-FLAGS=-Wall -lSDL2 -lSDL2_image
+CC    = g++
+OBJ   = src/*.cpp
+OBJ   += src/game_state/*.cpp
+OBJ   += src/map/*.cpp
+OBJ   += src/entities/*.cpp
+OBJ   += src/entities/hero/*.cpp
+FLAGS = -Wall -lSDL2 -lSDL2_image
 
 all:
 

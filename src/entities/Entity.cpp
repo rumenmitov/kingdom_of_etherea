@@ -14,8 +14,8 @@ Entity::Entity() {
 };
 
 
-Entity::Entity(char sprite[1024], unsigned int health = 0, unsigned int speed = 0) :
-  health(health), speed(speed)
+Entity::Entity(char sprite[1024], unsigned int id, unsigned int health = 0, unsigned int speed = 0) :
+  id(id), health(health), speed(speed)
 {
   x = SCREEN_WIDTH / (TILE_WIDTH * 2);
   y = SCREEN_HEIGHT / (TILE_HEIGHT * 2);
